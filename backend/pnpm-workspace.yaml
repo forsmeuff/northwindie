@@ -1,0 +1,5 @@
+allowBuilds:
+  '@sentry/node-cpu-profiler': set this to true or false
+  stream-chat: set this to true or false
+minimumReleaseAgeExclude:
+  - zod@4.6.6
