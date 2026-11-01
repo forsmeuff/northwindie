@@ -20,7 +20,6 @@ export const users = pgTable("users", {
     role: text("role").notNull().$type<UserRole>().default("customer"),
     createdAt: timestamp("created_at", {withTimezone: true}).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", {withTimezone: true}).notNull().defaultNow(),
-
 })
 
 export const products = pgTable("products", {
