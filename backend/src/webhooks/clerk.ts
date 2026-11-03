@@ -2,6 +2,7 @@ import type {Request, Response} from "express";
 import { getEnv } from "../lib/env";
 import {verifyWebhook} from "@clerk/backend/webhooks";
 import { parseRole } from "../lib/roles";
+import {eq} from "drizzle-orm";
 import { db } from "../db";
 import { users } from "../db/schema";
 export async function clerkWebhookHandler(req:Request, res:Response){
@@ -50,9 +51,11 @@ export async function clerkWebhookHandler(req:Request, res:Response){
                 await db.delete(users).where(eq(users.clerkUserId, id))
             }
         }
+        res.json({ok:true})
 
     }
     catch(error){
-
+        console.error("clerk webhoook error", error);
+        res.status(400).json({error: "Invalid Webhook"});
     }
 }
