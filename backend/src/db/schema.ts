@@ -27,7 +27,7 @@ export const products = pgTable("products", {
     slug: text("slug").notNull().unique(),
     name: text("name").notNull(),
     category: text("category").notNull().default("General"),
-    description: text("description").notNull().default(""),
+    deription: text("description").notNull().default(""),
     priceCents: integer("price_cents").notNull(),
     currency: text("currency").notNull().default("usd"),
     imageUrl: text("image_url"),

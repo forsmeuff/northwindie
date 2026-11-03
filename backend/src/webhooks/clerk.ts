@@ -4,7 +4,7 @@ import {verifyWebhook} from "@clerk/backend/webhooks";
 import { parseRole } from "../lib/roles";
 import { db } from "../db";
 import { users } from "../db/schema";
-export async function clerkWebhookHanlder(req:Request, res:Response){
+export async function clerkWebhookHandler(req:Request, res:Response){
     const env = getEnv();
 
     try {
@@ -28,18 +28,27 @@ export async function clerkWebhookHanlder(req:Request, res:Response){
 
             const email = u.email_addresses?.find((e)=> e.id === u.primary_email_address_id)?.email_address ?? u.email_addresses?.[0]?.email_address;
 
-            const displayName = [u.first_name, u.last_name].filter(Boolean).join(" ") || u.username || null;
+            const display_name = [u.first_name, u.last_name].filter(Boolean).join(" ") || u.username || null;
 
             const role = parseRole(u.public_metadata?.role);
                 
             await db.insert(users).values({
                 clerkUserId: u.id,
                 email: email,
-                displayName,
+                display_name,
                 role
             }
-            ).onConflictDoUpdate({target:users})
-            
+            ).onConflictDoUpdate({
+                target:users.clerkUserId,
+                set: {email, display_name, role, updatedAt: new Date() },
+                
+            })
+        }
+        if(evt.type === "user.deleted"){
+            const id = evt.data.id;
+            if (id){
+                await db.delete(users).where(eq(users.clerkUserId, id))
+            }
         }
 
     }
