@@ -12,6 +12,7 @@ export async function clerkWebhookHandler(req:Request, res:Response){
         //needs the webhook secret to know we are getting trusted incoming posts
         if(!env.CLERK_WEBHOOK_SECRET){
             res.status(503).send("Webhooks not configured");   
+            return;
         }
 
         const payload = req.body instanceof Buffer ? req.body.toString("utf8") : String(req.body);
@@ -35,7 +36,7 @@ export async function clerkWebhookHandler(req:Request, res:Response){
             await db.insert(users).values({
                 clerkUserId: u.id,
                 email: email,
-                display_name,
+                display_name: display_name,
                 role
             }
             ).onConflictDoUpdate({
