@@ -39,7 +39,7 @@ export const products = pgTable("products", {
 export const checkoutSessions = pgTable("checkout_sessions", {
     id: uuid("id").defaultRandom().primaryKey(),
     userId: uuid("user_id").notNull().references(() => users.id, {onDelete: "cascade"}),
-    polarCheckoutId: text("polar_checkout_id").notNull().unique(),
+    polarCheckoutId: text("polar_checkout_id").unique(),
     lines: jsonb("lines").$type<CheckoutSessionLine[]>().notNull(),
     totalCents: integer("total_cents").notNull(),
     currency: text("currency").notNull(),

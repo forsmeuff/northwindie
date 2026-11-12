@@ -14,6 +14,10 @@ import keepAliveCron from "./lib/cron";
 import meRouter from "./routes/meRouter";
 import productRouter from "./routes/productRouter";
 import streamRouter from "./routes/streamRouter";
+
+import checkoutRouter from "./routes/checkoutRouter";
+
+
 // const nayme:string = "John";
 
 // console.log(nayme);

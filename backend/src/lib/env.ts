@@ -20,7 +20,7 @@ const envSchema = z.object({
     POLAR_ACCESS_TOKEN: z.string().min(1),
     POLAR_WEBHOOK_SECRET: z.string().min(1),
     POLAR_API_BASE: z.string().min(1),
-    POLAR_CHECKOUT_PRODUCT_ID: z.string()
+    POLAR_CHECKOUT_PRODUCT_ID: z.uuid()
 })
 
 export type Env = z.infer<typeof envSchema>

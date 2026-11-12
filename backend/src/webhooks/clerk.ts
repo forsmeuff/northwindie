@@ -3,7 +3,7 @@ import { getEnv } from "../lib/env";
 import {verifyWebhook} from "@clerk/backend/webhooks";
 import { parseRole } from "../lib/roles";
 import {eq} from "drizzle-orm";
-import { db } from "../db";
+import { db } from "../db/index";
 import { users } from "../db/schema";
 export async function clerkWebhookHandler(req:Request, res:Response){
     const env = getEnv();
