@@ -45,6 +45,9 @@ app.get("/health", (_req, res)=>{
 app.use("/api/me", meRouter);
 app.use("/api/products", productRouter);
 app.use("/api/stream", streamRouter);
+app.use("/api/checkout", checkoutRouter);
+
+
 const publicDir = path.join(process.cwd(), "public");
 
 if(fs.existsSync(publicDir)){
